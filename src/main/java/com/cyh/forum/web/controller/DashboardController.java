@@ -65,6 +65,40 @@ public class DashboardController {
 		return "forum/dashboard";
 	}
 	@PreAuthorize("hasAuthority('ADMIN')")
+	@RequestMapping(value = "/dashboard/editCategories/{categorieId}", method = RequestMethod.GET)
+	public String editCategories(Model model,@PathVariable  String categorieId) {
+		Map<String, Object> attributes = this.dashboardService.getDashboard("categories", null, null);
+		if (null == attributes) {
+			throw new ResourceNotFoundException("attributes not found.");
+		}
+
+        Category category = dashboardService.queryCategorieInfo(categorieId);
+
+        model.addAllAttributes(attributes);
+		model.addAttribute("tab", "categories");
+		model.addAttribute("start", null);
+		model.addAttribute("end", null);
+		model.addAttribute("flag", "add");
+		model.addAttribute("category", category);
+		model.addAttribute("action", "edit");
+		return "forum/dashboard";
+	}
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@RequestMapping(value = "/dashboard/addCategories/edit", method = RequestMethod.POST)
+	public String createCategoriesEdit(Model model,@ModelAttribute Category category) {
+        dashboardService.updateCategorie(category);
+
+		Map<String, Object> attributes = this.dashboardService.getDashboard("categories", null, null);
+		if (null == attributes) {
+			throw new ResourceNotFoundException("attributes not found.");
+		}
+		model.addAllAttributes(attributes);
+		model.addAttribute("tab", "categories");
+		model.addAttribute("start", null);
+		model.addAttribute("end", null);
+		return "forum/dashboard";
+	}
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/dashboard/addCategories/create", method = RequestMethod.POST)
 	public String createCategories(Model model,@ModelAttribute Category category) {
         dashboardService.saveCategorie(category);

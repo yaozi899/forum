@@ -159,4 +159,12 @@ public class DashboardServiceImpl implements DashboardService {
 
 	}
 
+	public void updateCategorie(Category category){
+		categoryMapper.update(category);
+	}
+
+	public Category queryCategorieInfo(String categorieId){
+		return categoryMapper.queryCategorieInfo(categorieId);
+	}
+
 }

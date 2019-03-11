@@ -13,10 +13,14 @@ public interface CategoryMapper {
 
 	int save(Category category);
 
+	int update(Category category);
+
 	List<Category> findAll();
 
 	Long maxCategorieId();
 
 	void deleteCategorie(Integer categorieId);
+
+	Category queryCategorieInfo(String categorieId);
 
 }

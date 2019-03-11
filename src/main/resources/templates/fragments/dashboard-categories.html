@@ -4,7 +4,7 @@
 
     <div th:if="${activeTab == 'categories'}" id="dashboardCategories" th:fragment="categories">
         <div th:if="${flag != 'add'}">
-            <div><a class="btn btn-primary" href="/dashboard/addCategories" role="button">新增分类</a></div>
+            <div><a class="btn btn-default" href="/dashboard/addCategories" role="button">新增分类</a></div>
             <div th:if="${categories.size()==0}" class="centered"><h2>没有用户</h2></div>
             <div th:if="${categories.size()!=0}">
                 <table class="table table-hover table-condensed">
@@ -19,6 +19,7 @@
                         <td th:text="${categorie.name}"></td>
                         <td th:text="${categorie.username}"></td>
                         <td>
+                            <a class="btn btn-default" th:href="@{/dashboard/editCategories/{categorieId}(categorieId=${categorie.weight})}">编辑</a>
                             <a class="btn btn-danger" th:href="@{/dashboard/deleteCategorie/{categorieId}(categorieId=${categorie.weight})}">删除</a>
                         </td>
                     </tr>
@@ -35,6 +36,7 @@
                 <form th:action="@{/dashboard/addCategories/{action}(action=${action})}" method="post" class="form-horizontal">
 
                     <input type="hidden" name="id" th:value="${category.id}"/>
+                    <input type="hidden" name="weight" th:value="${category.weight}"/>
 
                     <div class="form-group">
                         <label for="book_name" class="col-sm-2 control-label">名称:</label>

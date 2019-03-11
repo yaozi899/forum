@@ -26,4 +26,8 @@ public interface DashboardService {
 
 	void saveCategorie(Category category);
 
+	Category queryCategorieInfo(String categorieId);
+
+	void updateCategorie(Category category);
+
 }

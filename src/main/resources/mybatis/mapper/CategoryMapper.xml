@@ -37,6 +37,11 @@
     <insert id="save" parameterType="com.cyh.forum.persistence.model.Category">
         INSERT INTO t_category(id, weight, NAME, display_name, username, date_created) VALUES(#{id}, #{weight}, #{name}, #{displayName}, #{username}, #{dateCreated})
     </insert>
+
+    <update id="update" parameterType="com.cyh.forum.persistence.model.Category" >
+        UPDATE `t_category` t SET t.`name` = #{name}, t.`display_name` = #{displayName} WHERE t.`weight` =  #{weight}
+    </update>
+
     <select id="maxCategorieId" resultType= "java.lang.Long">
         SELECT MAX(id) FROM t_category
     </select>
@@ -44,5 +49,17 @@
     <delete id="deleteCategorie" parameterType="java.lang.Integer">
           DELETE FROM t_category WHERE weight =#{categorieId}
      </delete>
+
+    <select id="queryCategorieInfo" parameterType="String" resultMap="CategoryResultMap">
+        SELECT
+	        c.id,
+	        c.weight,
+	        c.name,
+	        c.display_name,
+	        c.username,
+	        c.date_created
+        FROM T_CATEGORY c
+        WHERE c.weight = #{categorieId}
+    </select>
 
 </mapper>
