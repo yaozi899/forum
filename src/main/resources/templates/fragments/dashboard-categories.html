@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <div th:if="${activeTab == 'categories'}" id="dashboardCategories" th:fragment="categories">
+        <div th:if="${flag != 'add'}">
+            <div><a class="btn btn-primary" href="/dashboard/addCategories" role="button">新增分类</a></div>
+            <div th:if="${categories.size()==0}" class="centered"><h2>没有用户</h2></div>
+            <div th:if="${categories.size()!=0}">
+                <table class="table table-hover table-condensed">
+                    <tr >
+                        <th th:text="分类代码"></th>
+                        <th th:text="分类名称"></th>
+                        <th th:text="创建人"></th>
+                        <th th:text="标签"></th>
+                    </tr>
+                    <tr th:each="categorie:${categories}">
+                        <td th:text="${categorie.weight}"></td>
+                        <td th:text="${categorie.name}"></td>
+                        <td th:text="${categorie.username}"></td>
+                        <td>
+                            <a class="btn btn-danger" th:href="@{/dashboard/deleteCategorie/{categorieId}(categorieId=${categorie.weight})}">删除</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div th:if="${flag == 'add'}">
+
+            <div class="contentDiv">
+                <legend>
+                    <strong>分类管理</strong>
+                </legend>
+
+                <form th:action="@{/dashboard/addCategories/{action}(action=${action})}" method="post" class="form-horizontal">
+
+                    <input type="hidden" name="id" th:value="${category.id}"/>
+
+                    <div class="form-group">
+                        <label for="book_name" class="col-sm-2 control-label">名称:</label>
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control" id="book_name" name="name" th:value="${category.name}"
+                                   th:field="*{category.name}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="book_name" class="col-sm-2 control-label">显示名称:</label>
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control" id="book_name" name="name" th:value="${category.displayName}"
+                                   th:field="*{category.displayName}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <input class="btn btn-primary" type="submit" value="提交"/>&nbsp;&nbsp;
+                            <input class="btn" type="button" value="返回" onclick="history.back()"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
