@@ -29,6 +29,10 @@
             <artifactId>ibatis-core</artifactId>
             <version>3.0</version>
         </dependency> -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>

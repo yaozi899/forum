@@ -2,10 +2,13 @@ package com.cyh.forum.web.controller;
 
 import com.cyh.forum.exception.BadRequestException;
 import com.cyh.forum.exception.ResourceNotFoundException;
+import com.cyh.forum.persistence.model.User;
+import com.cyh.forum.service.PostService;
 import com.cyh.forum.service.UserService;
 import com.cyh.forum.util.NewUserFormValidator;
 import com.cyh.forum.web.dto.UserRegistrationDto;
 import com.cyh.forum.web.dto.UserSettingsDto;
+import com.cyh.forum.web.vo.HotPostVo;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -25,6 +29,8 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private PostService postService;
 
 	@Autowired
 	private NewUserFormValidator userValidator;
@@ -46,6 +52,8 @@ public class UserController {
 	@RequestMapping(value = "/user/registration", method = RequestMethod.GET)
 	public String showRegistrationPage(Model model) {
 		model.addAttribute("userDto", new UserRegistrationDto());
+		List<HotPostVo> hotPostVos = postService.hotPostVos();
+		model.addAttribute("hotPostVos", hotPostVos);
 		return "forum/user-registration";
 	}
 
@@ -56,6 +64,8 @@ public class UserController {
 		 * form validation, check username and email uniqueness
 		 */
 		this.userValidator.validate(userDto, bindingResult);
+		List<HotPostVo> hotPostVos = postService.hotPostVos();
+		model.addAttribute("hotPostVos", hotPostVos);
 		if (bindingResult.hasErrors()) {
 			logger.info("BindingResult has errors >> " + bindingResult.getFieldError());
 			return "forum/user-registration";
@@ -98,7 +108,9 @@ public class UserController {
 		if (null == attributes) {
 			throw new ResourceNotFoundException("attributes not found.");
 		}
+		User user = userService.findAuthenticatedUser();
 		model.addAllAttributes(attributes);
+		model.addAttribute("user", user);
 		return "forum/user-settings";
 	}
 
@@ -111,6 +123,8 @@ public class UserController {
 		if (null == attributes) {
 			throw new ResourceNotFoundException("attributes not found.");
 		}
+		User user = userService.findAuthenticatedUser();
+		model.addAttribute("user", user);
 		model.addAllAttributes(attributes);
 		return "forum/user-settings";
 	}

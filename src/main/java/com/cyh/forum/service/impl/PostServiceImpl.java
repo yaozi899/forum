@@ -12,6 +12,7 @@ import com.cyh.forum.persistence.model.User;
 import com.cyh.forum.service.PostService;
 import com.cyh.forum.web.dto.CommentDto;
 import com.cyh.forum.web.dto.PostDto;
+import com.cyh.forum.web.vo.HotPostVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
@@ -147,6 +148,11 @@ public class PostServiceImpl implements PostService {
 		PageInfo<Post> postsPageInfo = new PageInfo<>(posts);
 		// find categories
 		List<Category> categories = this.categoryMapper.findAll();
+
+		List<HotPostVo> hotPostVos = postMapper.hotPost();
+
+		List<HotPostVo> newPosts = postMapper.newPost();
+
 		// construct attributes map
 		Map<String, Object> attributes = new HashMap<>();
 		attributes.put("title", PageMessage.MESSAGE_HOMEPAGE_TITLE_CN);
@@ -157,6 +163,8 @@ public class PostServiceImpl implements PostService {
 		attributes.put("isLastPage", postsPageInfo.isIsLastPage());
 		attributes.put("totalPages", postsPageInfo.getPages());
 		attributes.put("pageType", "homePage");
+		attributes.put("hotPostVos", hotPostVos);
+		attributes.put("newPosts", newPosts);
 		return attributes;
 	}
 
@@ -170,6 +178,11 @@ public class PostServiceImpl implements PostService {
 		List<Category> categories = this.categoryMapper.findAll();
 		// find category details
 		Category category = this.categoryMapper.findByName(categoryName);
+
+		List<HotPostVo> hotPostVos = postMapper.hotPost();
+
+		List<HotPostVo> newPosts = postMapper.newPost();
+
 		// construct attributes map
 		Map<String, Object> attributes = new HashMap<>();
 		attributes.put("title", PageMessage.MESSAGE_HOMEPAGE_TITLE_CN);
@@ -181,6 +194,8 @@ public class PostServiceImpl implements PostService {
 		attributes.put("isLastPage", postsPageInfo.isIsLastPage());
 		attributes.put("totalPages", postsPageInfo.getPages());
 		attributes.put("pageType", "categoryPage");
+		attributes.put("hotPostVos", hotPostVos);
+		attributes.put("newPosts", newPosts);
 		return attributes;
 	}
 
@@ -205,6 +220,11 @@ public class PostServiceImpl implements PostService {
 		Map<String, Object> attributes = new HashMap<>();
 		attributes.put("posts", posts);
 		return attributes;
+	}
+
+	public List<HotPostVo> hotPostVos(){
+		List<HotPostVo> hotPostVos = postMapper.hotPost();
+		return  hotPostVos;
 	}
 
 }

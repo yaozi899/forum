@@ -1,6 +1,7 @@
 package com.cyh.forum.persistence.dao;
 
 import com.cyh.forum.persistence.model.Post;
+import com.cyh.forum.web.vo.HotPostVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -29,5 +30,9 @@ public interface PostMapper {
 	Long countNumOfPostsByCategoryId(Long categoryId);
 
 	Long countNumOfPostsByMonth(Integer month);
+
+	List<HotPostVo> hotPost();
+
+	List<HotPostVo> newPost();
 	
 }

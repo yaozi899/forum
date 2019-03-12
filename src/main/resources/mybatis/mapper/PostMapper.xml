@@ -148,5 +148,13 @@
     <delete id="delete" parameterType="Long">
         DELETE FROM T_POST WHERE id = #{postId}
     </delete>
+
+    <select id="hotPost" resultType="com.cyh.forum.web.vo.HotPostVo">
+        SELECT  t.`title`, t.`id` FROM t_post t  ORDER BY t.`hit_count` DESC  LIMIT 5
+    </select>
+
+    <select id="newPost" resultType="com.cyh.forum.web.vo.HotPostVo">
+        SELECT  t.`title`, t.`id` FROM t_post t  ORDER BY t.`date_created` DESC  LIMIT 5
+    </select>
     
 </mapper>

@@ -95,9 +95,13 @@ $(function() {
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">消息1</div>
-						<div class="panel-body">消息内容1</div>
+					<div class="panel  panel-info">
+						<div class="panel-heading">个人信息</div>
+						<div class="panel-body">
+							<li th:text="'用户名：' + ${user.username}"></li>
+							<li th:text="'邮  箱：' + ${user.email}"></li>
+							<li th:text="'创建日：' + ${user.dateCreated}"></li>
+						</div>
 					</div>
 				</div>
 			</div>

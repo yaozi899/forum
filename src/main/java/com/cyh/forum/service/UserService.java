@@ -30,4 +30,5 @@ public interface UserService {
 
 	Map<String, Object> confirmUserRegistrationWithToken(String token);
 
+
 }

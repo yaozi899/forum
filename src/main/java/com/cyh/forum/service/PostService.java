@@ -3,7 +3,9 @@ package com.cyh.forum.service;
 
 import com.cyh.forum.persistence.model.Post;
 import com.cyh.forum.web.dto.PostDto;
+import com.cyh.forum.web.vo.HotPostVo;
 
+import java.util.List;
 import java.util.Map;
 
 public interface PostService {
@@ -29,5 +31,7 @@ public interface PostService {
 	Map<String, Object> findPostDetailsAndCommentsByPostId(Long postId);
 
 	Map<String, Object> findPostsBetweenDateRange(String start, String end);
+
+	List<HotPostVo> hotPostVos();
 
 }

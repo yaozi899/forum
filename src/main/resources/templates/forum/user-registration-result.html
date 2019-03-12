@@ -30,14 +30,15 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">消息</div>
-                        <div class="panel-body">消息内容</div>
-                    </div>
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">消息</div>
-                        <div class="panel-body">消息内容</div>
+                    <div class="panel   panel-primary">
+                        <div class="panel-heading">热读榜</div>
+                        <div >
+                            <table class="table">
+                                <tr th:each="hotPost:${hotPostVos}">
+                                    <th ><a th:href="@{/post/{postId}(postId=${hotPost.id})}" th:text="${hotPost.title}"></a></th>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

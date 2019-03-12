@@ -13,6 +13,7 @@ import com.cyh.forum.service.StorageService;
 import com.cyh.forum.service.UserService;
 import com.cyh.forum.web.dto.UserRegistrationDto;
 import com.cyh.forum.web.dto.UserSettingsDto;
+import com.cyh.forum.web.vo.HotPostVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,6 +180,9 @@ public class UserServiceImpl implements UserService {
 		if (null == verificationToken) {
 			return null; // 404 exception
 		}
+
+		List<HotPostVo> hotPostVos = postMapper.hotPost();
+
 		// check if expire time is still within 24 hours
 		boolean tokenValid = verificationToken.getExpiryDate().getTime() - System.currentTimeMillis() > 0;
 		if (tokenValid) {
@@ -190,6 +194,7 @@ public class UserServiceImpl implements UserService {
 		} else {
 			attributes.put("registrationActivationResult", "failure");
 		}
+		attributes.put("hotPostVos", hotPostVos);
 		return attributes;
 	}
 
