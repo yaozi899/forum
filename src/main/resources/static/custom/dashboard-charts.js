@@ -1,6 +1,6 @@
 function loadPieChart() {
 	$.ajax({
-		url: '/dashboard/useruser',
+		url: '/dashboard/numOfPostsByCategories',
 		dataType: 'json',
 		}).done(function (results) {
 			var labels = [], colors = [], data = [];
