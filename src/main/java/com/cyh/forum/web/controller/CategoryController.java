@@ -34,5 +34,17 @@ public class CategoryController {
 		model.addAllAttributes(attributes);
 		return "forum/home";
 	}
+	@RequestMapping(value = "/category/search/", method = RequestMethod.GET)
+	public String search(@RequestParam(value = "search", required = false) String search,
+						 Model model,
+						 @RequestParam(value = "p", required = false, defaultValue="1") Integer pageNum,
+						 @RequestParam(value = "size", required = false, defaultValue="10") Integer pageSize) {
+		Map<String, Object> attributes = this.postService.findPostsByPageSearch(pageNum, pageSize, search);
+		if (null == attributes) {
+			return "error/404";
+		}
+		model.addAllAttributes(attributes);
+		return "forum/home";
+	}
 
 }

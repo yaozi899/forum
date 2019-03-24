@@ -21,6 +21,8 @@ public interface PostMapper {
 
 	List<Post> findAll();
 
+	List<Post> findSearch(@Param("search") String search);
+
 	List<Post> findPostsByCategory(String categoryName);
 
 	List<Post> findPostsByUserId(Long userId);

@@ -26,6 +26,8 @@ public interface PostService {
 
 	Map<String, Object> findPostsByPage(int currPage, int pageSize);
 
+	Map<String, Object> findPostsByPageSearch(int currPage, int pageSize, String search);
+
 	Map<String, Object> findPostsListByCategoryByPage(String categoryName, int currPage, int pageSize);
 
 	Map<String, Object> findPostDetailsAndCommentsByPostId(Long postId);

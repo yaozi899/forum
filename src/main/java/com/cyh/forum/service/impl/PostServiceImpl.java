@@ -167,6 +167,33 @@ public class PostServiceImpl implements PostService {
 		attributes.put("newPosts", newPosts);
 		return attributes;
 	}
+	@Override
+	public Map<String, Object> findPostsByPageSearch(int currPage, int pageSize, String search){
+		// find posts by page
+		PageHelper.startPage(currPage, pageSize);
+		List<Post> posts = this.postMapper.findSearch(search);
+		PageInfo<Post> postsPageInfo = new PageInfo<>(posts);
+		// find categories
+		List<Category> categories = this.categoryMapper.findAll();
+
+		List<HotPostVo> hotPostVos = postMapper.hotPost();
+
+		List<HotPostVo> newPosts = postMapper.newPost();
+
+		// construct attributes map
+		Map<String, Object> attributes = new HashMap<>();
+		attributes.put("title", PageMessage.MESSAGE_HOMEPAGE_TITLE_CN);
+		attributes.put("categories", categories);
+		attributes.put("posts", postsPageInfo.getList());
+		attributes.put("pageNum", postsPageInfo.getPageNum());
+		attributes.put("isFirstPage", postsPageInfo.isIsFirstPage());
+		attributes.put("isLastPage", postsPageInfo.isIsLastPage());
+		attributes.put("totalPages", postsPageInfo.getPages());
+		attributes.put("pageType", "homePage");
+		attributes.put("hotPostVos", hotPostVos);
+		attributes.put("newPosts", newPosts);
+		return attributes;
+	}
 
 	@Override
 	public Map<String, Object> findPostsListByCategoryByPage(String categoryName, int currPage, int pageSize) {

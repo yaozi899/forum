@@ -45,6 +45,8 @@ public class UserController {
 		if (null == attributes) {
 			throw new ResourceNotFoundException("attributes not found.");
 		}
+		List<HotPostVo> hotPostVos = postService.hotPostVos();
+		model.addAttribute("hotPostVos", hotPostVos);
 		model.addAllAttributes(attributes);
 		return "forum/user-profile";
 	}
