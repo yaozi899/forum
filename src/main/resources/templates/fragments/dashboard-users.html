@@ -21,12 +21,12 @@
                     <th th:text="   标签  "></th>
                 </tr>
                 <tr th:each="user:${users}">
-                    <td th:text="${user.username}"></td>
-                    <td th:text="${user.email}"></td>
-                    <td>
-                        <a class="btn btn-danger" th:href="@{/dashboard/delete/{bookId}(bookId=${user.id})}">删除</a>
-                    </td>
-                </tr>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
+                <td>
+                    <a class="btn btn-danger" th:href="@{/dashboard/delete/{bookId}(bookId=${user.id})}">删除</a>
+                </td>
+            </tr>
             </table>
         </div>
 

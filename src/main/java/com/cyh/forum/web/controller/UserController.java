@@ -81,6 +81,8 @@ public class UserController {
 	@RequestMapping(value = "/user/login", method = RequestMethod.GET)
 	public String displayLoginPage(Model model) {
 		model.addAttribute("title", "用户登录");
+		List<HotPostVo> hotPostVos = postService.hotPostVos();
+		model.addAttribute("hotPostVos", hotPostVos);
 		return "forum/user-login";
 	}
 

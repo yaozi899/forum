@@ -10,6 +10,7 @@ import com.cyh.forum.service.PostService;
 import com.cyh.forum.util.NewPostFormValidator;
 import com.cyh.forum.web.dto.CommentDto;
 import com.cyh.forum.web.dto.PostDto;
+import com.cyh.forum.web.vo.HotPostVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -64,6 +66,8 @@ public class PostController {
 		if (null == attributes) {
 			throw new ResourceNotFoundException("attributes not found.");
 		}
+		List<HotPostVo> hotPostVos = postService.hotPostVos();
+		model.addAttribute("hotPostVos", hotPostVos);
 		model.addAllAttributes(attributes);
 		return "forum/post";
 	}
