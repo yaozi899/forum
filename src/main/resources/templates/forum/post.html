@@ -35,6 +35,11 @@
 							</div>
 							<!-- text area with line break feature -->
   							<p class="post-content" th:utext="${#strings.replace( #strings.escapeXml(post.body),T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}" ></p>
+							<div th:if="${post.fileName != null}">
+								<span>文件：</span>
+								<a th:href="@{/postDowload/{fileName}(fileName=${post.fileName})}" th:text="${post.fileName}"></a>
+							</div>
+
 						</div>
 					</div>
 					<!-- comment section -->

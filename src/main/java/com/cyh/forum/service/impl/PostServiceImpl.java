@@ -122,7 +122,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public Post createNewPost(PostDto newPostForm) {
+	public Post createNewPost(PostDto newPostForm,String fileName) {
 		// find authenticated user
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
@@ -137,6 +137,7 @@ public class PostServiceImpl implements PostService {
 		post.setCategory(category);
 		post.setDateCreated(new Timestamp(System.currentTimeMillis()));
 		post.setUser(user);
+		post.setFileName(fileName);
 		return post;
 	}
 

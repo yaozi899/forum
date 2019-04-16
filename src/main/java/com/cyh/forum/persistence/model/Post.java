@@ -18,6 +18,7 @@ public class Post implements Serializable {
 	private User user;
 	private Long commentCount;
 	private Long hitCount;
+	private String fileName;
 
 	public Post() {
 
@@ -37,6 +38,13 @@ public class Post implements Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 	public String getBody() {

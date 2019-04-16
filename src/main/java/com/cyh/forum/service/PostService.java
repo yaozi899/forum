@@ -18,7 +18,7 @@ public interface PostService {
 
 	Post findById(Long id);
 
-	Post createNewPost(PostDto newPostForm);
+	Post createNewPost(PostDto newPostForm, String fileName);
 
 	int deletePostAndComments(Long postId);
 
