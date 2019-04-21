@@ -84,10 +84,14 @@ public class PostController {
             throw new BadRequestException("Path variable fileName cound not be null.");
         }
         if (fileName != null) {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            String username = auth.getName();
+//            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//            String username = auth.getName();
+//            if("anonymousUser".equals(username)){
+//                return "forum/user-login";
+//            }
+
             //设置文件路径
-            File file = new File(staticResourceLocation + username + "/file/" + fileName);
+            File file = new File(staticResourceLocation  + "file/" + fileName);
             //File file = new File(realPath , fileName);
             if (file.exists()) {
                 FileInputStream fis = null;
@@ -107,7 +111,7 @@ public class PostController {
                         os.write(buffer, 0, i);
                         i = bis.read(buffer);
                     }
-                    return "下载成功";
+                    return null;
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
@@ -160,8 +164,8 @@ public class PostController {
         if (null == postDto) {
             throw new BadRequestException("NewPostForm cound not be null.");
         }
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String username = auth.getName();
         try {
             String fileName = null;
             if (!file.isEmpty()) {
@@ -172,7 +176,7 @@ public class PostController {
                 String suffixName = fileName.substring(fileName.lastIndexOf("."));
                 logger.info("文件的后缀名为：" + suffixName);
                 // 设置文件存储路径
-                String path = staticResourceLocation + username + "/file/" + fileName;
+                String path = staticResourceLocation + "file/" + fileName;
                 File dest = new File(path);
                 // 检测是否存在目录
                 if (!dest.getParentFile().exists()) {
